@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.toshiro.exceptions.UnsupportedMathOperationException;
+
 @RestController
 public class MathController {
 
-	private final AtomicLong counter = new AtomicLong();
-
 	@GetMapping(value = "/sum/{numberOne}/{numberTwo}")
 	public Double greeting(@PathVariable(value = "numberOne") String numberOne,
-			@PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+			@PathVariable(value = "numberTwo") String numberTwo) throws UnsupportedMathOperationException {
 
 		if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-			throw new Exception();
+			throw new UnsupportedMathOperationException("Please set a numeric value!");
 		}
 		return convertToDouble(numberOne) + convertToDouble(numberTwo);
 	}
